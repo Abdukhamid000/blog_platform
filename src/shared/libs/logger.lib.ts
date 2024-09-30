@@ -11,15 +11,11 @@ addColors(customColors);
 
 export const Logger = createLogger({
   format: format.combine(
-    format.colorize(),
+    format.colorize({ all: true }),
     format.timestamp({ format: "HH:mm:ss" }),
     format.printf(({ timestamp, level, message }) => {
       return `[${level}] ${timestamp} ${message}`;
     })
   ),
-  transports: [
-    new transports.Console({
-      level: "info",
-    }),
-  ],
+  transports: [new transports.Console()],
 });

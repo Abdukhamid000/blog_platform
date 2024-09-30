@@ -1,13 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { ClassConstructor, plainToInstance } from "class-transformer";
-import { IsNotEmpty, Length, validate } from "class-validator";
+import { validate } from "class-validator";
 import { HttpStatus } from "../enums/http-status.enum";
-
-export class CreateUserDTO {
-  @IsNotEmpty({ message: "username is required" })
-  @Length(4, 20, { message: "username must be between 4 and 20 characters" })
-  username: string;
-}
 
 export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
   return async (

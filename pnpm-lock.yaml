@@ -29,6 +29,9 @@ importers:
       express:
         specifier: ^5.0.0
         version: 5.0.0
+      express-rate-limit:
+        specifier: ^7.4.0
+        version: 7.4.0(express@5.0.0)
       pg:
         specifier: ^8.4.0
         version: 8.13.0
@@ -478,6 +481,12 @@ packages:
   events@3.3.0:
     resolution: {integrity: sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==}
     engines: {node: '>=0.8.x'}
+
+  express-rate-limit@7.4.0:
+    resolution: {integrity: sha512-v1204w3cXu5gCDmAvgvzI6qjzZzoMWKnyVDk3ACgfswTQLYiGen+r8w0VnXnGMmzEN/g8fwIQ4JrFFd4ZP6ssg==}
+    engines: {node: '>= 16'}
+    peerDependencies:
+      express: 4 || 5 || ^5.0.0-beta.1
 
   express@5.0.0:
     resolution: {integrity: sha512-V4UkHQc+B7ldh1YC84HCXHwf60M4BOMvp9rkvTUWCK5apqDC1Esnbid4wm6nFyVuDy8XMfETsJw5lsIGBWyo0A==}
@@ -1696,6 +1705,10 @@ snapshots:
   event-target-shim@5.0.1: {}
 
   events@3.3.0: {}
+
+  express-rate-limit@7.4.0(express@5.0.0):
+    dependencies:
+      express: 5.0.0
 
   express@5.0.0:
     dependencies:

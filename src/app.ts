@@ -1,15 +1,12 @@
 import express from "express";
 import cors from "cors";
-import { loggerMiddleware } from "./shared/middlewares/logger.middleware";
-import { errorMiddleware } from "./shared/middlewares/error.middleware";
-import { notFoundMiddleware } from "./shared/middlewares/not-found.middleware";
-
 import {
-  CreateUserDTO,
-  requestBodyValidator,
-} from "./shared/validators/request-body.validator";
-import { AppDataSource } from "./data-source";
-import { User } from "./entity/user.entity";
+  loggerMiddleware,
+  errorMiddleware,
+  limiterMiddleware,
+  notFoundMiddleware,
+} from "./shared/middlewares";
+import UserController from "./modules/user/user.controller";
 
 export const app = express();
 
@@ -20,20 +17,13 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   })
 );
+app.use(limiterMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(loggerMiddleware);
 
 // ==== Routes ==== //
-app.get("/", async (_req, res) => {
-  res.send("Hello World");
-});
-
-app.post("/", requestBodyValidator(CreateUserDTO), async (req, res) => {
-  const userRepo = AppDataSource.getRepository(User);
-  const saved = await userRepo.save(req.body);
-  res.json({ user: saved });
-});
+app.use("/user", UserController);
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);
