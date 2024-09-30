@@ -1,7 +1,25 @@
-import winston from "winston";
+import { createLogger, format, transports, addColors } from "winston";
 
-export const Logger = winston.createLogger({
-  level: "info",
-  format: winston.format.json(),
-  transports: [new winston.transports.Console()],
+const customColors = {
+  info: "blue",
+  error: "red",
+  warn: "yellow",
+  debug: "green",
+};
+
+addColors(customColors);
+
+export const Logger = createLogger({
+  format: format.combine(
+    format.colorize(),
+    format.timestamp({ format: "HH:mm:ss" }),
+    format.printf(({ timestamp, level, message }) => {
+      return `[${level}] ${timestamp} ${message}`;
+    })
+  ),
+  transports: [
+    new transports.Console({
+      level: "info",
+    }),
+  ],
 });

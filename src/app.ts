@@ -25,6 +25,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(loggerMiddleware);
 
 // ==== Routes ==== //
+app.get("/", async (_req, res) => {
+  res.send("Hello World");
+});
+
 app.post("/", requestBodyValidator(CreateUserDTO), async (req, res) => {
   const userRepo = AppDataSource.getRepository(User);
   const saved = await userRepo.save(req.body);

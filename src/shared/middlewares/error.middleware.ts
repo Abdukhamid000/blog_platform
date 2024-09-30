@@ -9,7 +9,7 @@ export function errorMiddleware(
   res: Response,
   _next: NextFunction
 ) {
-  Logger.error(`[${new Date().toLocaleString()}] ${err}`);
+  Logger.error(`${err}`);
 
   if (err instanceof HttpException) {
     res.status(err.status).json({

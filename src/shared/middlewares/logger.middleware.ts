@@ -6,7 +6,7 @@ export function loggerMiddleware(
   _res: Response,
   next: NextFunction
 ) {
-  Logger.info(`[${new Date().toLocaleString()}] ${req.method}: ${req.url}`);
+  Logger.info(`${req.method}: ${req.url}`);
 
   next();
 }
