@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { HttpStatus } from "../enums/http-status.enum";
+import { HttpException } from "../exceptions/http.exception";
 
 export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
   return async (

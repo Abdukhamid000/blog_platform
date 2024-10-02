@@ -5,10 +5,11 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  Entity,
 } from "typeorm";
 import { User } from "./user.entity";
 import { Blog } from "./blog.entity";
-
+@Entity()
 export class Comment {
   @PrimaryGeneratedColumn("uuid")
   id: string;

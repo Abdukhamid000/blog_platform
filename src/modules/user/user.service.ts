@@ -14,6 +14,10 @@ class UserService {
       throw new HttpException("email already exists", HttpStatus.BAD_REQUEST);
     }
   }
+
+  static async getUserByEmail(email: string) {
+    return await this.userRepo.findOneBy({ email });
+  }
 }
 
 export default UserService;

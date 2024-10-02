@@ -1,7 +1,7 @@
-# Awesome Project Build with TypeORM
+# Awesome blog post project build with TypeORM
 
 Steps to run this project:
 
-1. Run `npm i` command
+1. Run `pnpm i` command
 2. Setup database settings inside `data-source.ts` file
-3. Run `npm start` command
+3. Run `pnpm dev` command

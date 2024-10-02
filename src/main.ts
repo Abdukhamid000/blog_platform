@@ -1,11 +1,10 @@
 import { app } from "./app";
-import { config } from "dotenv";
 import { AppDataSource } from "./data-source";
 import { Logger } from "./shared/libs/logger.lib";
-
-config();
+import { config } from "dotenv";
 
 async function bootstrap() {
+  config();
   await AppDataSource.initialize();
   Logger.info("Database connected");
 

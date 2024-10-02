@@ -7,6 +7,7 @@ import {
   notFoundMiddleware,
 } from "./shared/middlewares";
 import UserController from "./modules/user/user.controller";
+import AuthController from "./modules/auth/auth.controller";
 
 export const app = express();
 
@@ -24,6 +25,7 @@ app.use(loggerMiddleware);
 
 // ==== Routes ==== //
 app.use("/user", UserController);
+app.use("/auth", AuthController);
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);
