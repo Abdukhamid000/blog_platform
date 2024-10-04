@@ -5,7 +5,7 @@ import { comparePw, hashPw } from "../../shared/utils/hashPw";
 import { requestBodyValidator } from "../../shared/validators/request-body.validator";
 import { LoginUserDTO } from "../user/dto/login-user.dto";
 import { HttpStatus } from "../../shared/enums/http-status.enum";
-import { Http } from "winston/lib/winston/transports";
+import jwt from "jsonwebtoken";
 import { HttpException } from "../../shared/exceptions/http.exception";
 
 const AuthController = Router();
@@ -41,6 +41,12 @@ AuthController.post(
     if (!comparePw(password, user.password)) {
       throw new HttpException("Invalid password", HttpStatus.BAD_REQUEST);
     }
+
+    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+      expiresIn: "30m",
+      algorithm: "HS256",
+    });
+    res.status(HttpStatus.OK).json({ token });
   }
 );
 

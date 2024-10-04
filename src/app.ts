@@ -9,7 +9,7 @@ import {
 import UserController from "./modules/user/user.controller";
 import AuthController from "./modules/auth/auth.controller";
 
-export const app = express();
+const app = express();
 
 // ==== Middlewares ==== //
 app.use(
@@ -26,7 +26,12 @@ app.use(loggerMiddleware);
 // ==== Routes ==== //
 app.use("/user", UserController);
 app.use("/auth", AuthController);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
+
+export { app };
