@@ -26,9 +26,6 @@ app.use(loggerMiddleware);
 // ==== Routes ==== //
 app.use("/user", UserController);
 app.use("/auth", AuthController);
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);
