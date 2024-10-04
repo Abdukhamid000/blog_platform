@@ -5,8 +5,8 @@ import { comparePw, hashPw } from "../../shared/utils/hashPw";
 import { requestBodyValidator } from "../../shared/validators/request-body.validator";
 import { LoginUserDTO } from "../user/dto/login-user.dto";
 import { HttpStatus } from "../../shared/enums/http-status.enum";
-import { HttpException } from "../../shared/exceptions/http.exception";
 import jwt from "jsonwebtoken";
+import { HttpException } from "../../shared/exceptions/http.exception";
 
 const AuthController = Router();
 
