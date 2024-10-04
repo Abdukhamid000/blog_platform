@@ -43,7 +43,7 @@ AuthController.post(
     }
 
     const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: "30m",
+      expiresIn: "15m",
       algorithm: "HS256",
     });
     res.status(HttpStatus.OK).json({ token });
