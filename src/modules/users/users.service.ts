@@ -5,7 +5,7 @@ import BadRequestException from "../../shared/exceptions/bad-request.exception";
 import { HttpException } from "../../shared/exceptions/http.exception";
 import { CreateUserDTO } from "./dto/create-user.dto";
 
-class UserService {
+class UsersService {
   private static userRepo = AppDataSource.getRepository(User);
 
   static async createUser(data: CreateUserDTO) {
@@ -21,4 +21,4 @@ class UserService {
   }
 }
 
-export default UserService;
+export default UsersService;
