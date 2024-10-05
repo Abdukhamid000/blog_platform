@@ -8,6 +8,7 @@ import {
 } from "./shared/middlewares";
 import UsersController from "./modules/users/users.controller";
 import AuthController from "./modules/auth/auth.controller";
+import BlogsController from "./modules/blogs/blogs.controller";
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.use(loggerMiddleware);
 // ==== Routes ==== //
 app.use("/users", UsersController);
 app.use("/auth", AuthController);
+app.use("/blogs", BlogsController);
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);

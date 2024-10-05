@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { ClassConstructor, plainToInstance } from "class-transformer";
 import { validate } from "class-validator";
 import { HttpStatus } from "../enums/http-status.enum";
-import { HttpException } from "../exceptions/http.exception";
 
 export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
   return async (
@@ -12,7 +11,10 @@ export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
   ): Promise<void> => {
     const dtoObject = plainToInstance<T, V>(dtoClass, req.body || {});
 
-    const errors = await validate(dtoObject);
+    const errors = await validate(dtoObject, {
+      whitelist: true,
+      forbidNonWhitelisted: true,
+    });
     const errorMessages = errors.map((error) =>
       Object.values(error.constraints || {}).join(", ")
     );
