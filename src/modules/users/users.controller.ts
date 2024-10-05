@@ -1,11 +1,11 @@
 import { Router } from "express";
 import { CreateUserDTO } from "./dto/create-user.dto";
 import { requestBodyValidator } from "../../shared/validators/request-body.validator";
-import UserService from "./user.service";
+import UserService from "./users.service";
 
-const UserController = Router();
+const UsersController = Router();
 
-UserController.post(
+UsersController.post(
   "/",
   requestBodyValidator(CreateUserDTO),
   async (req, res) => {
@@ -14,4 +14,4 @@ UserController.post(
   }
 );
 
-export default UserController;
+export default UsersController;
