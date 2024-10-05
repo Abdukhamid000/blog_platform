@@ -1,6 +1,7 @@
 import { AppDataSource } from "../../data-source";
 import { User } from "../../entity/user.entity";
 import { HttpStatus } from "../../shared/enums/http-status.enum";
+import BadRequestException from "../../shared/exceptions/bad-request.exception";
 import { HttpException } from "../../shared/exceptions/http.exception";
 import { CreateUserDTO } from "./dto/create-user.dto";
 
@@ -11,7 +12,7 @@ class UserService {
     try {
       return await this.userRepo.save(data);
     } catch (err) {
-      throw new HttpException("email already exists", HttpStatus.BAD_REQUEST);
+      throw new BadRequestException("email already exists");
     }
   }
 

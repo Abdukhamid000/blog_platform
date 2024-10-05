@@ -1,12 +1,10 @@
 import { Logger } from "../libs/logger.lib";
 import { Request, Response } from "express";
 import { HttpStatus } from "../enums/http-status.enum";
+import NotFoundException from "../exceptions/not-found.exception";
 
 export function notFoundMiddleware(req: Request, res: Response) {
   Logger.warn(`${HttpStatus.NOT_FOUND}: ${req.url}`);
 
-  res.status(HttpStatus.NOT_FOUND).json({
-    statusCode: HttpStatus.NOT_FOUND,
-    message: "Not Found",
-  });
+  throw new NotFoundException("Not found");
 }
