@@ -33,10 +33,14 @@ class AuthService {
       throw new UnauthorizedException("Invalid password");
     }
 
-    const token = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
-      expiresIn: "15m",
-      algorithm: "HS256",
-    });
+    const token = jwt.sign(
+      { email: user.email },
+      process.env.JWT_SECRET || "SECRET",
+      {
+        expiresIn: "15m",
+        algorithm: "HS256",
+      }
+    );
 
     return token;
   }
