@@ -10,14 +10,14 @@ class BlogsService {
   private static userRepo = AppDataSource.getRepository(User);
 
   static async createBlog(data: CreateBlogDTO) {
-    const { author_id, ...blog } = data;
+    const { author_id } = data;
     const user = await this.userRepo.findOneBy({ id: author_id });
 
     if (!user) {
       throw new NotFoundException("User not found");
     }
 
-    return await this.blogRepo.save({ author_id, ...blog });
+    return await this.blogRepo.save(data);
   }
 
   static async getAllBlogs(offset = 0, limit = 10) {
@@ -25,8 +25,6 @@ class BlogsService {
       skip: offset,
       take: limit,
     });
-
-    console.log(blogs, "BLOGA");
 
     return { blogs, total, limit, offset };
   }
