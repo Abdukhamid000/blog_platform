@@ -1,18 +1,34 @@
 import CreateBlogDTO from "./dto/create-blog.dto";
-import UpdateBlogDto from "./dto/create-blog.dto";
+import UpdateBlogDto from "./dto/update-blog.dto";
 import { AppDataSource } from "../../data-source";
 import { Blog } from "../../entity/blog.entity";
 import NotFoundException from "../../shared/exceptions/not-found.exception";
+import { User } from "../../entity/user.entity";
 
 class BlogsService {
   private static blogRepo = AppDataSource.getRepository(Blog);
+  private static userRepo = AppDataSource.getRepository(User);
 
   static async createBlog(data: CreateBlogDTO) {
-    return await this.blogRepo.save(data);
+    const { author_id, ...blog } = data;
+    const user = await this.userRepo.findOneBy({ id: author_id });
+
+    if (!user) {
+      throw new NotFoundException("User not found");
+    }
+
+    return await this.blogRepo.save({ author_id, ...blog });
   }
 
   static async getAllBlogs(offset = 0, limit = 10) {
-    return await this.blogRepo.find({ skip: offset, take: limit });
+    const [blogs, total] = await this.blogRepo.findAndCount({
+      skip: offset,
+      take: limit,
+    });
+
+    console.log(blogs, "BLOGA");
+
+    return { blogs, total, limit, offset };
   }
 
   static async updateBlog(data: UpdateBlogDto, id: string) {
