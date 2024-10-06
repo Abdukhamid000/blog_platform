@@ -30,11 +30,15 @@ class BlogsService {
   }
 
   static async updateBlog(data: UpdateBlogDto, id: string) {
-    const res = await this.blogRepo.update(id, data);
-    if (res.affected === 0) {
-      throw new NotFoundException("Blog not found");
+    const { author_id } = data;
+    const blog = await this.blogRepo.findOne({ where: { id, author_id } });
+
+    if (!blog) {
+      throw new NotFoundException("Blog not found or you are not the author");
     }
-    return await this.blogRepo.findOneBy({ id });
+
+    Object.assign(blog, data);
+    return await this.blogRepo.save(blog);
   }
 
   static async deleteBlog(id: string) {
