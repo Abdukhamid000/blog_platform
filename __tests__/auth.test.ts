@@ -1,18 +1,8 @@
-import app from "../src/app";
 import request from "supertest";
-import { AppDataSource } from "../src/data-source";
 
 describe("AuthController", () => {
-  beforeAll(async () => {
-    await AppDataSource.initialize();
-  });
-
-  afterAll(async () => {
-    await AppDataSource.destroy();
-  });
-
   it("should create a new user", async () => {
-    const res = await request(app)
+    const res = await request("http://localhost:8080")
       .post("/auth/signup")
       .send({
         username: "test15",
@@ -29,7 +19,7 @@ describe("AuthController", () => {
   });
 
   it("should login user", async () => {
-    const res = await request(app)
+    const res = await request("http://localhost:8080")
       .post("/auth/login")
       .send({
         email: "test15@gmail14.com",

@@ -34,5 +34,4 @@ app.use("/blogs", BlogsController);
 app.use(notFoundMiddleware);
 app.use(errorMiddleware);
 
-export default app;
 export { app };

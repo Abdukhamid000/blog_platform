@@ -1,20 +1,11 @@
-import app from "../src/app";
 import request from "supertest";
-import { AppDataSource } from "../src/data-source";
 
 describe("AuthController", () => {
-  beforeAll(async () => {
-    await AppDataSource.initialize();
-  });
-
-  afterAll(async () => {
-    await AppDataSource.destroy();
-  });
-
   it("should create a new blog post", async () => {
-    const res = await request(app)
+    const res = await request("http://localhost:8080")
       .post("/blogs")
       .send({
+        author_id: "08835c10-1dfe-4e8d-9869-129afdf3a4b1",
         title: "test",
         content: "this is test",
         tags: ["test"],
@@ -23,14 +14,15 @@ describe("AuthController", () => {
 
     expect(res.status).toBe(201);
 
-    expect(res.body).toHaveProperty("title", "test");
-    expect(res.body).toHaveProperty("content", "this is test");
-    expect(res.body).toHaveProperty("tags", ["test"]);
+    expect(res.body).toHaveProperty("data");
+    expect(res.body.data).toHaveProperty("title", "test");
+    expect(res.body.data).toHaveProperty("content", "this is test");
+    expect(res.body.data).toHaveProperty("tags", ["test"]);
   });
 
   it("should edit blog post", async () => {
-    const res = await request(app)
-      .patch("/blogs")
+    const res = await request("http://localhost:8080")
+      .patch("/blogs/03e37225-cc73-41b7-91ec-43e9befe32bc")
       .send({
         author_id: "08835c10-1dfe-4e8d-9869-129afdf3a4b1",
         title: "updated test",
@@ -43,7 +35,15 @@ describe("AuthController", () => {
   });
 
   it("should get all blog posts", async () => {
-    const res = await request(app).get("/blogs");
+    const res = await request("http://localhost:8080").get("/blogs");
+
+    expect(res.status).toBe(200);
+  });
+
+  it("should delete blog post", async () => {
+    const res = await request("http://localhost:8080").delete(
+      "/blogs/08835c10-1dfe-4e8d-9869-129afdf3a4b1"
+    );
 
     expect(res.status).toBe(200);
   });

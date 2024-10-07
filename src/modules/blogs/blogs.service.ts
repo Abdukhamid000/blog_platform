@@ -42,12 +42,12 @@ class BlogsService {
   }
 
   static async deleteBlog(id: string) {
-    const user = await this.blogRepo.findOneBy({ id });
-    if (!user) {
+    const blog = await this.blogRepo.findOneBy({ id });
+    if (!blog) {
       throw new NotFoundException("Blog not found");
     }
     await this.blogRepo.delete(id);
-    return user;
+    return blog;
   }
 }
 
