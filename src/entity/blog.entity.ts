@@ -18,9 +18,6 @@ export class Blog {
   author: User;
 
   @Column()
-  author_id: string;
-
-  @Column()
   title: string;
 
   @Column("text")
@@ -35,6 +32,6 @@ export class Blog {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Comment, (comment) => comment.blog_id)
+  @OneToMany(() => Comment, (comment) => comment.blog)
   comments: Comment[];
 }

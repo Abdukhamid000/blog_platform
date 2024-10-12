@@ -31,7 +31,9 @@ class BlogsService {
 
   static async updateBlog(data: UpdateBlogDto, id: string) {
     const { author_id } = data;
-    const blog = await this.blogRepo.findOne({ where: { id, author_id } });
+    const blog = await this.blogRepo.findOne({
+      where: { id, author: { id: author_id } },
+    });
 
     if (!blog) {
       throw new NotFoundException("Blog not found or you are not the author");

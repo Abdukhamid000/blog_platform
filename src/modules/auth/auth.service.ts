@@ -37,7 +37,7 @@ class AuthService {
       { sub: user.id },
       process.env.JWT_SECRET || "SECRET",
       {
-        expiresIn: "15m",
+        expiresIn: "30m",
         algorithm: "HS256",
       }
     );

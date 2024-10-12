@@ -17,12 +17,6 @@ export class Comment {
   @ManyToOne(() => User, (user) => user.comments)
   user: User;
 
-  @Column()
-  user_id: string;
-
-  @Column()
-  title: string;
-
   @Column("text")
   content: string;
 
@@ -34,7 +28,4 @@ export class Comment {
 
   @ManyToOne(() => Blog, (blog) => blog.comments)
   blog: Blog;
-
-  @Column()
-  blog_id: string;
 }
