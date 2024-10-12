@@ -27,7 +27,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(loggerMiddleware);
 
 // ==== Routes ==== //
-app.use("/users", UsersController);
+app.use("/users", authenticationMiddleware, UsersController);
 app.use("/auth", AuthController);
 app.use("/blogs", authenticationMiddleware, BlogsController);
 app.use("/comments", authenticationMiddleware, CommentsController);
