@@ -15,6 +15,9 @@ export class Blog {
   id: string;
 
   @ManyToOne(() => User, (user) => user.blogs)
+  author: User;
+
+  @Column()
   author_id: string;
 
   @Column()

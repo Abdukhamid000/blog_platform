@@ -1,23 +1,23 @@
 import {
   IsArray,
-  IsNotEmpty,
   IsOptional,
+  IsNotEmpty,
   IsString,
   IsUUID,
 } from "class-validator";
 
-export class CreateBlogDTO {
+export class UpdateBlogDto {
   @IsUUID(4, { message: "author_id must be a valid UUID" })
   @IsString({ message: "author_id must be a string" })
   @IsNotEmpty({ message: "author_id is required" })
   author_id: string;
 
+  @IsOptional()
   @IsString({ message: "title must be a string" })
-  @IsNotEmpty({ message: "title is required" })
   title: string;
 
+  @IsOptional()
   @IsString({ message: "content must be a string" })
-  @IsNotEmpty({ message: "content is required" })
   content: string;
 
   @IsOptional()
@@ -25,4 +25,4 @@ export class CreateBlogDTO {
   tags: string[];
 }
 
-export default CreateBlogDTO;
+export default UpdateBlogDto;

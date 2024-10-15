@@ -1,20 +1,23 @@
 import { Request, Response, NextFunction } from "express";
-import { ClassConstructor, plainToInstance } from "class-transformer";
-import { validate } from "class-validator";
+import { plainToInstance } from "class-transformer";
+import { IsString, IsUUID, validate } from "class-validator";
 import { HttpStatus } from "../enums/http-status.enum";
 
-export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
+class Params {
+  @IsString()
+  @IsUUID()
+  id: string;
+}
+
+export function routeParamsValidator() {
   return async (
     req: Request,
     res: Response,
     next: NextFunction
   ): Promise<void> => {
-    const dtoObject = plainToInstance<T, V>(dtoClass, req.body || {});
+    const dtoObject = plainToInstance(Params, req.params);
 
-    const errors = await validate(dtoObject, {
-      whitelist: true,
-      forbidNonWhitelisted: true,
-    });
+    const errors = await validate(dtoObject);
     const errorMessages = errors.map((error) =>
       Object.values(error.constraints || {}).join(", ")
     );
@@ -22,7 +25,7 @@ export function requestBodyValidator<T, V>(dtoClass: ClassConstructor<T>) {
     if (errors.length > 0) {
       res.status(HttpStatus.BAD_REQUEST).json({
         statusCode: HttpStatus.BAD_REQUEST,
-        message: "Validation failed",
+        message: "Invalid route params",
         errors: errorMessages,
       });
     } else {
