@@ -10,6 +10,7 @@ import UsersController from "./modules/users/users.controller";
 import AuthController from "./modules/auth/auth.controller";
 import BlogsController from "./modules/blogs/blogs.controller";
 import { authenticationMiddleware } from "./shared/middlewares/authentication";
+import CommentsController from "./modules/comments/comments.controller";
 
 const app = express();
 
@@ -26,9 +27,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(loggerMiddleware);
 
 // ==== Routes ==== //
-app.use("/users", UsersController);
+app.use("/users", authenticationMiddleware, UsersController);
 app.use("/auth", AuthController);
-app.use("/blogs", BlogsController);
+app.use("/blogs", authenticationMiddleware, BlogsController);
+app.use("/comments", authenticationMiddleware, CommentsController);
 
 // ==== Error Handler ==== //
 app.use(notFoundMiddleware);

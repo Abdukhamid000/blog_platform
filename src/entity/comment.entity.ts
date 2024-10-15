@@ -15,10 +15,7 @@ export class Comment {
   id: string;
 
   @ManyToOne(() => User, (user) => user.comments)
-  user_id: string;
-
-  @Column()
-  title: string;
+  user: User;
 
   @Column("text")
   content: string;
@@ -29,6 +26,6 @@ export class Comment {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @OneToMany(() => Blog, (blog) => blog.comments)
-  blog_id: Comment[];
+  @ManyToOne(() => Blog, (blog) => blog.comments)
+  blog: Blog;
 }
